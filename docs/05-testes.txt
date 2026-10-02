@@ -16,7 +16,7 @@ Na última validação feita por mim, a suíte backend passou com 18 testes.
 
 Rodar no Windows:
 cd backend
-.\mvnw.cmd test
+.\mvnw.cmd clean test
 
 FRONTEND
 ListaAlunosComponent.spec:
