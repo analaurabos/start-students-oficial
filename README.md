@@ -292,7 +292,7 @@ Backend:
 
 ```powershell
 cd backend
-.\mvnw.cmd test
+.\mvnw.cmd clean test
 ```
 
 Frontend:
