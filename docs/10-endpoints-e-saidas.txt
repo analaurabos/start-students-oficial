@@ -11,10 +11,12 @@ Finalidade: Realizar o login local do protótipo e identificar o perfildo usuár
 Entrada: JSON com: - usuario - senha
 
 Usuários disponíveis: 
+
 - adminuser / admin123 → ADMINISTRADOR 
 - leitoruser / leitor123 → LEITOR
 
 Saída de sucesso — HTTP 200: Retorna um objeto com: 
+
 - token JWT; 
 - usuario; 
 - perfil.
@@ -32,12 +34,14 @@ Saída de erro — HTTP 401: Quando usuário ou senha são inválidos:
 GET /api/alunos
 
 Perfis: 
+
 - ADMINISTRADOR 
 - LEITOR
 
 Finalidade: Retornar a lista paginada de alunos.
 
 Parâmetros opcionais: 
+
 - nome — busca pelo nome; 
 - matricula — busca pela matrícula; 
 - status — filtra pelo status; 
@@ -46,6 +50,7 @@ Parâmetros opcionais:
 - sort — campo e direção da ordenação.
 
 A aplicação utiliza como padrão: 
+
 - size = 10; 
 - ordenação por
 nomeCompleto em ordem crescente.
@@ -61,6 +66,7 @@ A listagem é convertida para AlunoResponse antes de ser enviada ao frontend.
 GET /api/alunos/{id}
 
 Perfis: 
+
 - ADMINISTRADOR 
 - LEITOR
 
@@ -77,6 +83,7 @@ A mensagem vem da exceção de aluno não encontrado.
 POST /api/alunos
 
 Perfil: 
+
 - ADMINISTRADOR
 
 Finalidade: Cadastrar um novo aluno.
@@ -88,6 +95,7 @@ Saída de sucesso — HTTP 201: Retorna o aluno cadastrado em formato AlunoRespo
 O status 201 indica que um novo recurso foi criado.
 
 Principais situações de erro: 
+
 - HTTP 400 — requisição malformada; 
 - HTTP 409 — conflito com dados existentes; 
 - HTTP 422 — dados inválidos ou erro de regra de negócio; 
@@ -106,6 +114,7 @@ Entrada: JSON com os dados permitidos para atualização.
 Saída de sucesso — HTTP 200: Retorna o aluno atualizado em formato AlunoResponse.
 
 Principais situações de erro: 
+
 - HTTP 400 — requisição malformada; 
 - HTTP 404 — aluno não encontrado; 
 - HTTP 409 — conflito, inclusive situações relacionadas à versão do registro; 
@@ -117,6 +126,7 @@ Principais situações de erro:
 DELETE /api/alunos/{id}
 
 Perfil: 
+
 - ADMINISTRADOR
 
 Finalidade: Inativar um aluno.
@@ -128,6 +138,7 @@ Saída de sucesso — HTTP 204: A API não retorna corpo na resposta.
 O status 204 indica que a operação foi concluída sem conteúdo para retornar.
 
 Principais situações de erro: 
+
 - HTTP 404 — aluno não encontrado; 
 - HTTP 403 — usuário sem permissão; 
 - HTTP 500 — erro interno não tratado por uma regra específica.
@@ -176,6 +187,7 @@ O frontend centraliza as chamadas em:
 frontend/src/app/core/services/aluno.service.ts
 
 Os métodos principais são: 
+
 - listar() 
 - buscar() 
 - cadastrar() 
@@ -186,5 +198,4 @@ O serviço utiliza a URL base:
 
 http://localhost:8080/api/alunos
 
-Assim, os componentes da interface não precisam montar diretamente as
-requisições HTTP para cada operação.
+Assim, os componentes da interface não precisam montar diretamente as requisições HTTP para cada operação.
