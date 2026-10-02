@@ -1,22 +1,23 @@
 ENDPOINTS E SAÍDAS DA API Start Students
 
-Este documento descreve os endpoints implementados no backend e os
-principais formatos de saída utilizados pelo frontend.
+Este documento descreve os endpoints implementados no backend e os principais formatos de saída utilizados pelo frontend.
 
 1.  AUTENTICAÇÃO
 
 POST /api/auth/login
 
-Finalidade: Realizar o login local do protótipo e identificar o perfil
-do usuário.
+Finalidade: Realizar o login local do protótipo e identificar o perfildo usuário.
 
 Entrada: JSON com: - usuario - senha
 
-Usuários disponíveis: - adminuser / admin123 → ADMINISTRADOR -
-leitoruser / leitor123 → LEITOR
+Usuários disponíveis: 
+- adminuser / admin123 → ADMINISTRADOR 
+- leitoruser / leitor123 → LEITOR
 
-Saída de sucesso — HTTP 200: Retorna um objeto com: - token JWT; -
-usuario; - perfil.
+Saída de sucesso — HTTP 200: Retorna um objeto com: 
+- token JWT; 
+- usuario; 
+- perfil.
 
 Exemplo de estrutura:
 
@@ -30,39 +31,44 @@ Saída de erro — HTTP 401: Quando usuário ou senha são inválidos:
 
 GET /api/alunos
 
-Perfis: - ADMINISTRADOR - LEITOR
+Perfis: 
+- ADMINISTRADOR 
+- LEITOR
 
 Finalidade: Retornar a lista paginada de alunos.
 
-Parâmetros opcionais: - nome — busca pelo nome; - matricula — busca pela
-matrícula; - status — filtra pelo status; - page — página solicitada; -
-size — quantidade de registros; - sort — campo e direção da ordenação.
+Parâmetros opcionais: 
+- nome — busca pelo nome; 
+- matricula — busca pela matrícula; 
+- status — filtra pelo status; 
+- page — página solicitada; 
+- size — quantidade de registros; 
+- sort — campo e direção da ordenação.
 
-A aplicação utiliza como padrão: - size = 10; - ordenação por
+A aplicação utiliza como padrão: 
+- size = 10; 
+- ordenação por
 nomeCompleto em ordem crescente.
 
 Saída de sucesso — HTTP 200: Retorna uma página de alunos.
 
-A resposta contém os dados dos alunos e informações da paginação, como
-conteúdo, página atual e quantidade de registros.
+A resposta contém os dados dos alunos e informações da paginação, como conteúdo, página atual e quantidade de registros.
 
-A listagem é convertida para AlunoResponse antes de ser enviada ao
-frontend.
+A listagem é convertida para AlunoResponse antes de ser enviada ao frontend.
 
 3.  CONSULTA DE ALUNO
 
 GET /api/alunos/{id}
 
-Perfis: - ADMINISTRADOR - LEITOR
+Perfis: 
+- ADMINISTRADOR 
+- LEITOR
 
 Finalidade: Consultar os dados de um aluno específico pelo ID.
 
-Saída de sucesso — HTTP 200: Retorna o AlunoResponse correspondente ao
-aluno.
+Saída de sucesso — HTTP 200: Retorna o AlunoResponse correspondente ao aluno.
 
-Saída quando o aluno não existe — HTTP 404:
-
-{ “mensagem”: “…” }
+Saída quando o aluno não existe — HTTP 404: { “mensagem”: “…” }
 
 A mensagem vem da exceção de aluno não encontrado.
 
@@ -70,21 +76,22 @@ A mensagem vem da exceção de aluno não encontrado.
 
 POST /api/alunos
 
-Perfil: - ADMINISTRADOR
+Perfil: 
+- ADMINISTRADOR
 
 Finalidade: Cadastrar um novo aluno.
 
-Entrada: JSON representando o aluno. Os dados passam pelas validações do
-backend antes da criação.
+Entrada: JSON representando o aluno. Os dados passam pelas validações do backend antes da criação.
 
-Saída de sucesso — HTTP 201: Retorna o aluno cadastrado em formato
-AlunoResponse.
+Saída de sucesso — HTTP 201: Retorna o aluno cadastrado em formato AlunoResponse.
 
 O status 201 indica que um novo recurso foi criado.
 
-Principais situações de erro: - HTTP 400 — requisição malformada; - HTTP
-409 — conflito com dados existentes; - HTTP 422 — dados inválidos ou
-erro de regra de negócio; - HTTP 403 — usuário sem permissão.
+Principais situações de erro: 
+- HTTP 400 — requisição malformada; 
+- HTTP 409 — conflito com dados existentes; 
+- HTTP 422 — dados inválidos ou erro de regra de negócio; 
+- HTTP 403 — usuário sem permissão.
 
 5.  EDIÇÃO DE ALUNO
 
@@ -96,19 +103,21 @@ Finalidade: Atualizar os dados de um aluno existente.
 
 Entrada: JSON com os dados permitidos para atualização.
 
-Saída de sucesso — HTTP 200: Retorna o aluno atualizado em formato
-AlunoResponse.
+Saída de sucesso — HTTP 200: Retorna o aluno atualizado em formato AlunoResponse.
 
-Principais situações de erro: - HTTP 400 — requisição malformada; - HTTP
-404 — aluno não encontrado; - HTTP 409 — conflito, inclusive situações
-relacionadas à versão do registro; - HTTP 422 — validação ou regra de
-negócio; - HTTP 403 — usuário sem permissão.
+Principais situações de erro: 
+- HTTP 400 — requisição malformada; 
+- HTTP 404 — aluno não encontrado; 
+- HTTP 409 — conflito, inclusive situações relacionadas à versão do registro; 
+- HTTP 422 — validação ou regra de negócio; 
+- HTTP 403 — usuário sem permissão.
 
 6.  EXCLUSÃO DE ALUNO
 
 DELETE /api/alunos/{id}
 
-Perfil: - ADMINISTRADOR
+Perfil: 
+- ADMINISTRADOR
 
 Finalidade: Inativar um aluno.
 
@@ -116,43 +125,34 @@ A exclusão é lógica: o registro não é removido fisicamente do banco.
 
 Saída de sucesso — HTTP 204: A API não retorna corpo na resposta.
 
-O status 204 indica que a operação foi concluída sem conteúdo para
-retornar.
+O status 204 indica que a operação foi concluída sem conteúdo para retornar.
 
-Principais situações de erro: - HTTP 404 — aluno não encontrado; - HTTP
-403 — usuário sem permissão; - HTTP 500 — erro interno não tratado por
-uma regra específica.
+Principais situações de erro: 
+- HTTP 404 — aluno não encontrado; 
+- HTTP 403 — usuário sem permissão; 
+- HTTP 500 — erro interno não tratado por uma regra específica.
 
 7.  CÓDIGOS HTTP UTILIZADOS
 
-200 OK Usado quando a operação foi concluída com sucesso e existe
-conteúdo para retornar.
+200 OK Usado quando a operação foi concluída com sucesso e existe conteúdo para retornar.
 
 201 CREATED Usado no cadastro de um novo aluno.
 
-204 NO CONTENT Usado na exclusão lógica quando a operação é concluída
-sem corpo de resposta.
+204 NO CONTENT Usado na exclusão lógica quando a operação é concluída sem corpo de resposta.
 
-400 BAD REQUEST Usado para requisições malformadas, como JSON que não
-pode ser lido.
+400 BAD REQUEST Usado para requisições malformadas, como JSON que não pode ser lido.
 
-401 UNAUTHORIZED Usado quando a autenticação falha, como no login com
-usuário ou senha inválidos.
+401 UNAUTHORIZED Usado quando a autenticação falha, como no login com usuário ou senha inválidos.
 
-403 FORBIDDEN Usado quando o usuário está autenticado, mas não possui
-permissão para realizar a ação.
+403 FORBIDDEN Usado quando o usuário está autenticado, mas não possui permissão para realizar a ação.
 
 404 NOT FOUND Usado quando o aluno solicitado não é encontrado.
 
-409 CONFLICT Usado em conflitos, como dados que entram em conflito com
-registros existentes ou situações de concorrência/versão.
+409 CONFLICT Usado em conflitos, como dados que entram em conflito com registros existentes ou situações de concorrência/versão.
 
-422 UNPROCESSABLE ENTITY Usado quando a requisição possui estrutura
-válida, mas os dados não podem ser processados por falha de validação ou
-regra de negócio.
+422 UNPROCESSABLE ENTITY Usado quando a requisição possui estrutura válida, mas os dados não podem ser processados por falha de validação ou regra de negócio.
 
-500 INTERNAL SERVER ERROR Usado para erros internos não tratados
-especificamente.
+500 INTERNAL SERVER ERROR Usado para erros internos não tratados especificamente.
 
 8.  FORMATO DOS ERROS
 
@@ -162,14 +162,12 @@ A resposta simples de erro utiliza o formato:
 
 { “mensagem”: “…” }
 
-Quando ocorre erro de validação de campos, a resposta também pode
-apresentar os campos:
+Quando ocorre erro de validação de campos, a resposta também pode apresentar os campos:
 
 { “mensagem”: “Confira os campos informados.”, “campos”: {
 “nomeDoCampo”: “mensagem da validação” } }
 
-Isso facilita o tratamento dos erros pelo frontend e permite apresentar
-mensagens específicas para o usuário.
+Isso facilita o tratamento dos erros pelo frontend e permite apresentar mensagens específicas para o usuário.
 
 9.  COMUNICAÇÃO COM O FRONTEND
 
@@ -177,8 +175,12 @@ O frontend centraliza as chamadas em:
 
 frontend/src/app/core/services/aluno.service.ts
 
-Os métodos principais são: - listar() - buscar() - cadastrar() -
-editar() - excluir()
+Os métodos principais são: 
+- listar() 
+- buscar() 
+- cadastrar() 
+- editar() 
+- excluir()
 
 O serviço utiliza a URL base:
 
