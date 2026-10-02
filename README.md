@@ -211,8 +211,6 @@ Ainda em `backend`:
 
 Mantenha esse terminal aberto.
 
-- Backend: `http://localhost:8080`
-- API: `http://localhost:8080/api`
 - H2 Console: `http://localhost:8080/h2-console`
 
 No H2:
@@ -360,4 +358,4 @@ O Spring mantém o H2 em arquivo e carrega a massa inicial somente quando o banc
 
 ## Sobre o nível da entrega
 
-O núcleo obrigatório do desafio foi priorizado e está funcional, mas o projeto não é apresentado como produto de produção completo, por conta do prazo de entrega. Persistência de usuários com senha em hash, configuração externa de segredos, banco de produção, Docker, CI/CD, cache, auditoria avançada, restauração e uma cobertura de testes mais ampla continuaram fora desta etapa. Por isso, a referência citada de ~75% diz respeito ao produto completo imaginado, e não a apenas 75% das regras obrigatórias.
+O núcleo obrigatório do desafio foi priorizado e está funcional, mas o projeto não é o produto de produção completo, por conta do prazo de entrega. Persistência de usuários com senha em hash, configuração externa de segredos, banco de produção, Docker, CI/CD, cache, auditoria avançada, restauração e uma cobertura de testes mais ampla continuaram fora desta etapa. Por isso, acredito que tenha executado cerca de ~75% do projeto.
