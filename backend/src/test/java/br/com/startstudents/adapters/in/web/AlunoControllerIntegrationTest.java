@@ -18,6 +18,7 @@ class AlunoControllerIntegrationTest {
  @Test void leitorNaoPodeExcluir()throws Exception{mvc.perform(delete("/api/alunos/1").header("Authorization",leitor())).andExpect(status().isForbidden());}
  @Test void leitorNaoPodeCadastrar()throws Exception{mvc.perform(post("/api/alunos").header("Authorization",leitor()).contentType(MediaType.APPLICATION_JSON).content("{\"nomeCompleto\":\"Maria Silva\",\"email\":\"maria.nova@email.com\",\"cpf\":\"52998224725\",\"telefone\":\"81999999999\"}")).andExpect(status().isForbidden());}
  @Test void leitorNaoPodeEditar()throws Exception{
+  
   // Captura um aluno existente para verificar que a tentativa não altera dados.
   String lista=mvc.perform(get("/api/alunos").header("Authorization",admin())).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
   com.fasterxml.jackson.databind.ObjectMapper mapper=new com.fasterxml.jackson.databind.ObjectMapper();
