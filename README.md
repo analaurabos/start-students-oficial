@@ -1,14 +1,56 @@
 # Start Students
 
-> **Este é o repositório oficial do projeto Start Students.** Antes, o projeto estava em um repositório de teste. A partir desta entrega, este repositório passa a ser a referência oficial.
+> **Este é o repositório oficial do projeto Start Students, feito por Ana Laura Barboza Oliveira dos Santos para a CapGemini.** Antes, o projeto estava em um repositório de teste, e transferi para esse para deixar de uma maneira mais organizada.
 
 Sistema de Gestão de Alunos desenvolvido para o desafio técnico **START STUDENTS — Protótipo 2.0**.
 
+## Entregáveis mínimos
+
+Os cinco entregáveis mínimos previstos no desafio estão organizados da seguinte forma:
+
+### 1. Aplicação executável em ambiente local
+- `backend/` — aplicação Spring Boot, API e regras de negócio.
+- `frontend/` — aplicação Angular e interface do sistema.
+- `database/` — scripts relacionados ao banco de dados.
+- As instruções completas para execução local estão neste README, na seção **"Passo a passo para executar e testar do zero"**.
+
+### 2. README com arquitetura, configuração e comandos
+- Este `README.md` apresenta:
+  - arquitetura e organização do projeto;
+  - tecnologias utilizadas;
+  - pré-requisitos;
+  - configuração do ambiente;
+  - comandos para build, execução e testes;
+  - usuários disponíveis para teste;
+  - endpoints e códigos HTTP.
+
+### 3. Documentação dos endpoints e respostas
+- A documentação da API está neste README, na seção **"Endpoints"**.
+- Os códigos e respectivos usos estão na seção **"Códigos HTTP"**.
+- Informações complementares sobre regras e fluxos estão em:
+  - `docs/03-regras-e-fluxos.txt`
+  - `docs/06-requisitos-e-aceite.txt`
+
+### 4. Testes automatizados e instruções de execução
+- **Backend:** `backend/src/test/`
+  - testes unitários das regras de negócio;
+  - testes de validação de CPF;
+  - testes de integração dos endpoints e permissões.
+- **Frontend:** arquivos `*.spec.ts` em `frontend/src/app/pages/alunos/`.
+- A descrição dos testes e da cobertura está em `docs/05-testes.txt`.
+- Os comandos para executar os testes estão neste README, na seção **"Testes"**.
+
+### 5. Registro de decisões, limitações e próximos passos
+- `docs/07-limitacoes-e-proximos-passos.txt` — limitações conhecidas, funcionalidades futuras e itens fora do escopo.
+- `docs/01-arquitetura.txt` — decisões relacionadas à arquitetura.
+- `docs/03-regras-e-fluxos.txt` — regras e fluxos implementados.
+- `docs/06-requisitos-e-aceite.txt` — requisitos e critérios de aceite da entrega.
+
+------------------------------
+
 ## Status
 
-Entrega enxuta, pensada como aproximadamente 75% de um produto completo. O núcleo obrigatório do desafio foi priorizado e está funcional; itens de produção, opcionais e alguns refinamentos continuam listados em `docs/07-limitacoes-e-proximos-passos.txt`.
-
-Não foram adicionadas funcionalidades fora do escopo apenas para aumentar artificialmente a entrega.
+Entrega enxuta, pensada como aproximadamente 75% de um produto completo. O núcleo obrigatório do desafio foi priorizado e está funcional; itens de produção, opcionais e alguns refinamentos continuam listados em `docs/07-limitacoes-e-proximos-passos.txt`. Não foram adicionadas funcionalidades fora do escopo apenas para aumentar artificialmente a entrega.
 
 ## Stack
 
@@ -219,16 +261,6 @@ npm start
 
 Não é necessário instalar o Angular CLI globalmente.
 
-### 11. Antes de fazer commit
-
-Na raiz:
-
-```powershell
-git status
-```
-
-O `.gitignore` evita o versionamento de `frontend/node_modules/`, `frontend/.angular/`, `frontend/dist/`, `backend/target/` e da distribuição do Maven baixada pelo wrapper. Para parar backend ou frontend, use `Ctrl + C` no terminal correspondente.
-
 ## Endpoints
 
 | Método | Endpoint | Perfil |
@@ -246,19 +278,6 @@ A listagem aceita `nome`, `matricula`, `status`, `page`, `size` e `sort`.
 
 Foram previstos os códigos obrigatórios: 200/204, 201, 400, 401, 403, 404, 409, 422 e 500.
 
-## Testes
-
-```bash
-cd backend
-./mvnw test
-```
-
-```bash
-cd frontend
-npm install
-npm test -- --watch=false
-```
-
 ## Documentação
 
 A pasta `docs/` explica arquitetura, H2, regras, front, segurança, testes, critérios de aceite e o que ainda falta. O arquivo `docs/06-requisitos-e-aceite.txt` funciona como checklist da especificação.
@@ -269,4 +288,4 @@ O Spring mantém o H2 em arquivo e carrega a massa inicial somente quando o banc
 
 ## Sobre o nível da entrega
 
-O núcleo obrigatório do desafio foi priorizado e está funcional, mas o projeto continua propositalmente enxuto: não é apresentado como produto de produção completo. Persistência de usuários com senha em hash, configuração externa de segredos, banco de produção, Docker, CI/CD, cache, auditoria avançada, restauração e uma cobertura de testes mais ampla continuam fora desta etapa. Por isso, a referência de ~75% diz respeito ao produto completo imaginado, e não a apenas 75% das regras obrigatórias.
+O núcleo obrigatório do desafio foi priorizado e está funcional, mas o projeto não é apresentado como produto de produção completo, por conta do prazo de entrega. Persistência de usuários com senha em hash, configuração externa de segredos, banco de produção, Docker, CI/CD, cache, auditoria avançada, restauração e uma cobertura de testes mais ampla continuaram fora desta etapa. Por isso, a referência citada de ~75% diz respeito ao produto completo imaginado, e não a apenas 75% das regras obrigatórias.
