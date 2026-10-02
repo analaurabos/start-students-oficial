@@ -13,6 +13,13 @@ class GerenciarAlunoServiceTest {
  @Mock AlunoRepositoryPort repository;@Mock GeradorMatricula gerador;@Mock ValidadorCpf cpf;@Mock ValidadorFoto foto;
  @InjectMocks GerenciarAlunoService service;
  private Aluno valido(){return Aluno.builder().nomeCompleto("Ana Silva").cpf("52998224725").telefone("(81) 99999-9999").email("ana@email.com").build();}
+ 
+ // testes
+ // 1. não deve cadastrar cpf duplicado, 2. não deve cadastrar email duplicado
+ // 3. cadastro normalizado e gera matrícula, 4. não deve aceitar telefone inválido
+ // 5. editar mantém cpf e matrícula, 6. deve detectar conflito de versão
+ // 7. excluir lógico
+ 
  @Test void naoDeveCadastrarCpfDuplicado(){Aluno a=valido();when(cpf.valido(any())).thenReturn(true);when(repository.existeCpf("52998224725",null)).thenReturn(true);assertThrows(ConflitoException.class,()->service.cadastrar(a));verify(repository,never()).salvar(any());}
  @Test void naoDeveCadastrarEmailDuplicado(){Aluno a=valido();when(cpf.valido(any())).thenReturn(true);when(repository.existeEmail("ana@email.com",null)).thenReturn(true);assertThrows(ConflitoException.class,()->service.cadastrar(a));verify(repository,never()).salvar(any());}
  @Test void cadastroNormalizaDadosEGeraMatricula(){Aluno a=valido();when(cpf.valido("52998224725")).thenReturn(true);when(gerador.gerar()).thenReturn("20260001");when(repository.salvar(any())).thenAnswer(i->i.getArgument(0));Aluno salvo=service.cadastrar(a);assertEquals("52998224725",salvo.getCpf());assertEquals("81999999999",salvo.getTelefone());assertEquals("20260001",salvo.getMatricula());assertEquals(StatusAluno.ATIVO,salvo.getStatus());assertFalse(salvo.isUsuarioExcluido());}
