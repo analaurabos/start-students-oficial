@@ -6,45 +6,72 @@ Sistema de Gestão de Alunos desenvolvido para o desafio técnico **START STUDEN
 
 ## Entregáveis mínimos
 
-Os cinco entregáveis mínimos previstos no desafio estão organizados da seguinte forma:
+Os cinco entregáveis mínimos previstos no desafio estão resumidos abaixo para facilitar a consulta no repositório. A documentação detalhada, com explicações, decisões técnicas, regras, testes, endpoints e limitações, está disponível na pasta `docs/`.
 
 ### 1. Aplicação executável em ambiente local
+
 - `backend/` — aplicação Spring Boot, API e regras de negócio.
 - `frontend/` — aplicação Angular e interface do sistema.
 - `database/` — scripts relacionados ao banco de dados.
 - As instruções completas para execução local estão neste README, na seção **"Passo a passo para executar e testar do zero"**.
 
+**Documentação detalhada:**
+- `docs/01-arquitetura.txt`
+- `docs/02-h2-e-banco.txt`
+- `docs/07-limitacoes-e-proximos-passos.txt`
+
 ### 2. README com arquitetura, configuração e comandos
-- Este `README.md` apresenta:
-  - arquitetura e organização do projeto;
-  - tecnologias utilizadas;
-  - pré-requisitos;
-  - configuração do ambiente;
-  - comandos para build, execução e testes;
-  - usuários disponíveis para teste;
-  - endpoints e códigos HTTP.
+
+Este `README.md` apresenta de forma resumida:
+
+- arquitetura e organização do projeto;
+- tecnologias utilizadas;
+- pré-requisitos;
+- configuração do ambiente;
+- comandos para build, execução e testes;
+- usuários disponíveis para teste;
+- endpoints e códigos HTTP.
+
+As principais decisões de implementação estão detalhadas em:
+
+- `docs/08-decisoes-de-codigo-backend.txt`
+- `docs/09-decisoes-de-codigo-frontend.txt`
 
 ### 3. Documentação dos endpoints e respostas
-- A documentação da API está neste README, na seção **"Endpoints"**.
-- Os códigos e respectivos usos estão na seção **"Códigos HTTP"**.
-- Informações complementares sobre regras e fluxos estão em:
-  - `docs/03-regras-e-fluxos.txt`
-  - `docs/06-requisitos-e-aceite.txt`
+
+Este README apresenta um resumo dos endpoints, perfis e códigos HTTP nas seções **"Endpoints"** e **"Códigos HTTP"**.
+
+A documentação detalhada dos endpoints, incluindo entradas, saídas, permissões, códigos de erro e formatos das respostas está em:
+
+- `docs/10-endpoints-e-saidas.txt`
+
+Informações complementares sobre regras e fluxos estão em:
+
+- `docs/03-regras-e-fluxos.txt`
+- `docs/06-requisitos-e-aceite.txt`
 
 ### 4. Testes automatizados e instruções de execução
+
 - **Backend:** `backend/src/test/`
   - testes unitários das regras de negócio;
   - testes de validação de CPF;
   - testes de integração dos endpoints e permissões.
-- **Frontend:** arquivos `*.spec.ts` em `frontend/src/app/pages/alunos/`.
+- **Frontend:** arquivos `*.spec.ts` em `frontend/src/app/`.
 - A descrição dos testes e da cobertura está em `docs/05-testes.txt`.
-- Os comandos para executar os testes estão neste README, na seção **"Testes"**.
+- Os comandos para executar os testes estão neste README, na seção **"Testes automatizados"**.
 
 ### 5. Registro de decisões, limitações e próximos passos
-- `docs/07-limitacoes-e-proximos-passos.txt` — limitações conhecidas, funcionalidades futuras e itens fora do escopo.
-- `docs/01-arquitetura.txt` — decisões relacionadas à arquitetura.
+
+As decisões e informações complementares da implementação estão documentadas em:
+
+- `docs/01-arquitetura.txt` — arquitetura do projeto.
 - `docs/03-regras-e-fluxos.txt` — regras e fluxos implementados.
-- `docs/06-requisitos-e-aceite.txt` — requisitos e critérios de aceite da entrega.
+- `docs/06-requisitos-e-aceite.txt` — requisitos e critérios de aceite.
+- `docs/07-limitacoes-e-proximos-passos.txt` — limitações conhecidas, funcionalidades futuras e itens fora do escopo.
+- `docs/08-decisoes-de-codigo-backend.txt` — principais decisões de código do backend.
+- `docs/09-decisoes-de-codigo-frontend.txt` — principais decisões de código do frontend.
+
+> **Resumo:** este README apresenta uma visão geral dos cinco entregáveis mínimos. A versão detalhada da documentação está organizada nos arquivos da pasta `docs/`.
 
 ------------------------------
 
@@ -62,28 +89,54 @@ Entrega enxuta, pensada como aproximadamente 75% de um produto completo. O núcl
 - Arquitetura: Hexagonal
 - Build backend: Maven
 
-## Organização
+## Organização do repositório
 
 ```text
-backend/
-  domain/                  regras e modelos centrais
-  application/
-    ports/in/              casos de uso
-    ports/out/             contratos que o domínio precisa
-    service/               implementação das regras
-  adapters/
-    in/web/                controllers e DTOs
-    out/persistence/       JPA e H2
-  auth/                    login e JWT
-  config/                  configurações
-
-frontend/src/app/
-  core/                    auth, guards, interceptor e services
-  models/                  modelos do front
-  pages/                   telas
-
-database/                  script SQL
-docs/                      explicações do projeto em linguagem simples
+.
+├── backend/
+│   ├── src/
+│   │   ├── main/java/
+│   │   │   └── br/com/startstudents/
+│   │   │       ├── domain/              regras e modelos centrais
+│   │   │       ├── application/
+│   │   │       │   ├── ports/in/        contratos dos casos de uso
+│   │   │       │   ├── ports/out/       contratos de infraestrutura
+│   │   │       │   └── service/         implementação das regras
+│   │   │       ├── adapters/
+│   │   │       │   ├── in/web/          controllers e DTOs
+│   │   │       │   └── out/persistence/ persistência com JPA e H2
+│   │   │       ├── auth/                 autenticação, JWT e perfis
+│   │   │       └── config/               configurações
+│   │   └── test/                         testes unitários e de integração
+│   └── pom.xml                           configuração do Maven
+│
+├── frontend/
+│   ├── src/app/
+│   │   ├── core/                         autenticação, guards, interceptor,
+│   │   │                                  serviços e validadores
+│   │   ├── models/                       modelos do frontend
+│   │   └── pages/                        telas e fluxos da aplicação
+│   └── package.json                      dependências e scripts
+│
+├── database/
+│   └── start-students.sql                script SQL para consulta/teste manual
+│
+├── docs/
+│   ├── 01-arquitetura.txt                arquitetura do projeto
+│   ├── 02-h2-e-banco.txt                 banco H2 e persistência
+│   ├── 03-regras-e-fluxos.txt            regras e fluxos do sistema
+│   ├── 04-frontend-e-estados.txt         frontend e estados da interface
+│   ├── 05-testes.txt                     estratégia e cobertura dos testes
+│   ├── 06-requisitos-e-aceite.txt        requisitos e critérios de aceite
+│   ├── 07-limitacoes-e-proximos-passos.txt
+│   │                                      limitações e próximos passos
+│   ├── 08-decisoes-de-codigo-backend.txt
+│   │                                      decisões de implementação do backend
+│   ├── 09-decisoes-de-codigo-frontend.txt
+│   │                                      decisões de implementação do frontend
+│   └── 10-endpoints-e-saidas.txt          endpoints, entradas, saídas e códigos HTTP
+│
+└── README.md                              documentação principal
 ```
 
 ## O que já foi priorizado
@@ -121,8 +174,8 @@ O projeto usa Java 21 no build. Não é necessário instalar Maven globalmente: 
 Para uma cópia nova:
 
 ```powershell
-git clone https://github.com/analauraboliveira/start-students.git
-cd start-students
+git clone https://github.com/analaurabos/start-students-oficial.git
+cd start-students-oficial
 ```
 
 Se o repositório já estiver no computador:
@@ -265,22 +318,41 @@ Não é necessário instalar o Angular CLI globalmente.
 
 | Método | Endpoint | Perfil |
 |---|---|---|
-| POST | /api/auth/login | público |
-| GET | /api/alunos | ADMINISTRADOR e LEITOR |
-| GET | /api/alunos/{id} | ADMINISTRADOR e LEITOR |
-| POST | /api/alunos | ADMINISTRADOR |
-| PUT | /api/alunos/{id} | ADMINISTRADOR |
-| DELETE | /api/alunos/{id} | ADMINISTRADOR |
+| POST | `/api/auth/login` | público |
+| GET | `/api/alunos` | ADMINISTRADOR e LEITOR |
+| GET | `/api/alunos/{id}` | ADMINISTRADOR e LEITOR |
+| POST | `/api/alunos` | ADMINISTRADOR |
+| PUT | `/api/alunos/{id}` | ADMINISTRADOR |
+| DELETE | `/api/alunos/{id}` | ADMINISTRADOR |
 
 A listagem aceita `nome`, `matricula`, `status`, `page`, `size` e `sort`.
+
+A documentação detalhada dos endpoints, entradas, saídas, permissões e erros está em:
+
+`docs/10-endpoints-e-saidas.txt`
 
 ## Códigos HTTP
 
 Foram previstos os códigos obrigatórios: 200/204, 201, 400, 401, 403, 404, 409, 422 e 500.
 
+A explicação detalhada de cada código, suas situações de uso e os formatos de erro está em:
+
+`docs/10-endpoints-e-saidas.txt`
+
 ## Documentação
 
-A pasta `docs/` explica arquitetura, H2, regras, front, segurança, testes, critérios de aceite e o que ainda falta. O arquivo `docs/06-requisitos-e-aceite.txt` funciona como checklist da especificação.
+A pasta `docs/` concentra a documentação detalhada do projeto. O README apresenta um resumo para facilitar a consulta, enquanto os arquivos abaixo aprofundam cada tema:
+
+- `01-arquitetura.txt` — arquitetura do projeto.
+- `02-h2-e-banco.txt` — banco H2 e persistência.
+- `03-regras-e-fluxos.txt` — regras e fluxos do sistema.
+- `04-frontend-e-estados.txt` — frontend e estados da interface.
+- `05-testes.txt` — estratégia e cobertura dos testes.
+- `06-requisitos-e-aceite.txt` — requisitos e critérios de aceite.
+- `07-limitacoes-e-proximos-passos.txt` — limitações, itens fora do escopo e próximos passos.
+- `08-decisoes-de-codigo-backend.txt` — principais decisões de código do backend.
+- `09-decisoes-de-codigo-frontend.txt` — principais decisões de código do frontend.
+- `10-endpoints-e-saidas.txt` — endpoints, entradas, saídas, perfis e códigos HTTP.
 
 ## Banco
 
